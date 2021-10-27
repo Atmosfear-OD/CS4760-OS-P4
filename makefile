@@ -1,19 +1,23 @@
 CC = gcc
 CFLAG = -g
+TAR1 = oss
+TAR2 = user
+OBJ1 = oss.o
+OBJ2 = user.o
 
-all: oss user
+all: $(TAR1) $(TAR2)
 
-oss: oss.o
-	$(CC) $(CFLAG) -o oss oss.o
+$(TAR1): $(OBJ1)
+	$(CC) -o $(TAR1) $(OBJ1)
 
-user: user.o
-	$(CC) $(CFLAG) -o user user.o
+$(TAR2): $(OBJ2)
+	$(CC) -o $(TAR2) $(OBJ2)
 
-oss.o: oss.c
-	$(CC) $(CFLAG) -c oss.c
+$(OBJ1): oss.c
+	$(CC) $(CFLAG) -c oss.c shared.h
 
-user.o: user.c
-	$(CC) $(CFLAG) -c user.c
+$(OBJ2): user.c
+	$(CC) $(CFLAG) -c user.c shared.h
 
 clean:
-	rm -rf *.o oss user
+	rm -rf *.o *.log $(TAR1) $(TAR2)
